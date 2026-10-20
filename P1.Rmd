@@ -429,7 +429,7 @@ head(Bakery)
 str(Bakery)
 
 # 3. Guardar el data frame directamente en la carpeta results ya existente
-save(Bakery, file = "results/BreadBasket.RData")
+save(Bakery, file = "data/results/BreadBasket.RData")
 ```
 
 ### 3.2 Inspección de los datos
@@ -504,4 +504,44 @@ tail(iris_df)
 
 # Resumen estadístico
 summary(iris_df)
+```
+## 7 Fichero JSON FileCodificado.json
+
+### 7.1 Importación del fichero
+Los ficheros JSON (JavaScript Object Notation) son ficheros de texto que contienen datos (originalmente presentaciones de objetos JavaScript). Es un formato muy popular que se utiliza frecuentemente como alternativa a los ficheros XML, puesto que son más fáciles de leer e interpretar.
+
+En R podemos importar ficheros JSON con la librería jsonlite. Las funciones más empleadas son:
+
+read_json y write_json: leen/escriben objetos R directamente de/en ficheros JSON.
+toJSON: obtiene una representación JSON de un objeto R.
+fromJSON: inversa de la anterior, convierte una representación JSON en un objeto R.
+
+### 7.2 Importar el fichero FileCodificado.json
+```{r}
+library(jsonlite)
+
+# 1. Definir la ruta del fichero
+filename <- 'data/FileCodificado.json'
+
+# 2. Importar el fichero con read_json usando el parámetro simplifyVector = TRUE 
+# (para que se convierta correctamente en un data frame o estructura tabular limpia)
+datos_json <- read_json(filename, simplifyVector = TRUE)
+
+# 3. Almacenar los resultados en FileCodificado.RData dentro de la carpeta results
+save(datos_json, file = 'data/results/FileCodificado.RData')
+```
+
+### 7.3 Inspección de los datos
+```{r}
+# Inspeccionar la estructura del objeto JSON importado
+str(datos_json)
+
+# Ver las primeras filas o elementos
+head(datos_json)
+
+# Ver las últimasa filas o elementos
+tail(datos_json)
+
+# Resumen de los datos
+summary(datos_json)
 ```
