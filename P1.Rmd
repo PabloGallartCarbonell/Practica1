@@ -545,3 +545,56 @@ tail(datos_json)
 # Resumen de los datos
 summary(datos_json)
 ```
+## 8 Fichero JSON iris_json.json
+### 8.1 Importar el fichero iris_json.json
+```{r}
+library(jsonlite)
+library(readr)
+
+# 1.Importar el fichero a R con read_json
+datos_read_json <- read_json("data/iris_json.json")
+
+# 2. Importar el fichero a R con fromJSON
+datos_from_json <- fromJSON("data/iris_json.json", simplifyVector = TRUE)
+
+# 3. Almacenar los resultados en iris_json.RData en la carpeta results
+save(datos_from_json, file = "data/results/iris_json.RData")
+```
+read_json(): está pensada específicamente para leer un archivo JSON del disco. Por defecto, carga la estructura del fichero como una lista de listas anidadas en R, lo que respeta fielmente la jerarquía original del JSON.
+
+fromJSON(): incluye argumentos como simplifyVector = TRUE, lo que permite convertir automáticamente los datos en un data.frame u otros objetos estructurados de R, facilitando mucho el análisis estadístico posterior.
+
+### 8.2 Inspección de los datos
+```{r}
+str(datos_from_json)
+head(datos_from_json)
+tail(datos_from_json)
+summary(datos_from_json)
+```
+
+### 8.3 exportar datos en formato JSON
+```{r}
+library(jsonlite)
+library(readr)
+
+# 1. Leer y guardar con write_json
+# Asumiendo que la ruta a iris.RData es la habitual de tu proyecto
+load("data/results/iris.RData") 
+
+# Guardar los datos en formato JSON
+write_json(iris, path = "data/iris_json_v1.json") 
+# (Después, abre 'iris_json_v1.json' desde el panel de archivos de RStudio para comprobarlo)
+
+# 2. Alternativa con toJSON y write_file
+filename <- 'data/iris_json_v2.json'
+
+# Obtener representación JSON usando pretty = TRUE para que sea legible
+json_representation <- toJSON(iris, pretty = TRUE)
+
+# Almacenar los datos
+write_file(json_representation, file = filename)
+
+```
+Con pretty = TRUE: El texto JSON se genera con sangrías, saltos de línea y espacios en blanco. Esto crea una estructura jerárquica visual que resulta muy fácil de leer y entender para un humano.
+
+Sin pretty (o pretty = FALSE): Es el valor por defecto. El texto JSON se comprime en una sola línea continua, eliminando todos los espacios y saltos de línea innecesarios. Es más difícil de leer para una persona, pero resulta más ligero y eficiente para que lo procese una máquina o para enviarlo por red.
