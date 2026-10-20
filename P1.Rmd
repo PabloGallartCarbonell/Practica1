@@ -452,3 +452,21 @@ head(psych_data)
 tail(psych_data)
 summary(psych_data)
 ```
+## 5 Fichero data iris.zip
+[https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data](https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data)
+### 5.1 Descomprimir el fichero
+```{r}
+# Definir la ruta del archivo zip y la carpeta de destino
+ruta_zip <- "data/iris.zip"
+carpeta_destino <- "data"
+
+# Asegurarse de que la carpeta de destino existe
+if (!dir.exists(carpeta_destino)) {
+  dir.create(carpeta_destino)
+}
+
+# Descomprimir el archivo con la función unzip
+unzip(ruta_zip, exdir = carpeta_destino)
+
+cat("Archivo descomprimido exitosamente en:", carpeta_destino, "\n")
+```
