@@ -470,3 +470,15 @@ unzip(ruta_zip, exdir = carpeta_destino)
 
 cat("Archivo descomprimido exitosamente en:", carpeta_destino, "\n")
 ```
+## 6 Fichero data iris.data
+### 6.1 Importación del fichero
+```{r}
+# 1. Importar los datos
+iris_df <- read.table("data/iris.data", header = FALSE, sep = ",")
+
+# 2. Cambiar el nombre de las columnas exactamente como en la tabla
+colnames(iris_df) <- c("sepal length", "sepal width", "petal length", "petal width", "class")
+
+# 3. Guardar el data frame en la carpeta results
+save(iris_df, file = "data/results/iris.RData")
+```
