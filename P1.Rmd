@@ -411,17 +411,25 @@ summary(): Ofrece un resumen estadístico univariante (tendencia central, cuarti
 
 ### 3.1 Importación del fichero
 ```{r}
-#1
 library(readr)
-Bakery <- read_csv("data/bakery_sales_revised.csv")
-#TransactionNo=numeric, Items=character, DataTime=POSIXct, Daypart=character, Daytype=character
 
-#2
+# 1. Importar el fichero y definir explícitamente los tipos de datos correctos
+Bakery <- read_csv("data/bakery_sales_revised.csv", 
+                   col_types = cols(
+                     TransactionNo = col_double(),   # numérico
+                     Items = col_character(),        # texto
+                     DateTime = col_datetime(),      # POSIXct (fecha y hora)
+                     Daypart = col_character(),      # texto
+                     DayType = col_character()       # texto 
+                   ))
+
+# 2. Inspeccionar los datos
 View(Bakery)
 head(Bakery)
+str(Bakery)
 
 # 3. Guardar el data frame directamente en la carpeta results ya existente
-save(Bakery, file = "data/results/BreadBasket.RData")
+save(Bakery, file = "results/BreadBasket.RData")
 ```
 
 ### 3.2 Inspección de los datos
@@ -481,4 +489,19 @@ colnames(iris_df) <- c("sepal length", "sepal width", "petal length", "petal wid
 
 # 3. Guardar el data frame en la carpeta results
 save(iris_df, file = "data/results/iris.RData")
+```
+
+### 6.2 Inspección de los datos
+```{r}
+# Estructura del data frame
+str(iris_df)
+
+# Primeras filas
+head(iris_df)
+
+# Últimas filas
+tail(iris_df)
+
+# Resumen estadístico
+summary(iris_df)
 ```
